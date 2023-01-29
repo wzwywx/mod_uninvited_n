@@ -55,20 +55,30 @@ namespace UninvitedNudists
         public override void OnStart(long ticks)
         {
             Rng rng = new Rng(seed);
+
             string id = "Beings/Human01";
-            float damage = rng.Range(0.1f, 0.5f);
+            float damage = rng.Range(0.1f, 0.25f);
+
+            int maxNudists = rng.WeightedFrom<int>(new Dictionary<int, float> { { 5, 0.7f }, { 8, 0.3f }, { 10, 0.1f } });
+            int minNudists = 3;
+            int nudistsCount = rng.Range(minNudists, maxNudists);
 
             CmdSpawnBeing cmdSpawnBeing = new CmdSpawnBeing(EntityUtils.CenterOf(posIdx), The.Defs.Get(id), skipGreeting: false, null, damage, "Physical", isDamagePercentage: true);
 
             // TODO: To figure out for custom Persona use
             // cmdSpawnBeing.WithPersona(GenerateNudistPersona(Species.ForDef(id)));
-            cmdSpawnBeing.Execute(S);
 
-            Being being = cmdSpawnBeing.Being;
-            being.Traits.Set(new List<Trait> { BeingTraits.Get("nudist"), BeingTraits.Get("enlightened") }, true);
+            for (int i = 0; i < nudistsCount; i++)
+            {
+                cmdSpawnBeing.Execute(S);
+                Being being = cmdSpawnBeing.Being;
+                being.Traits.Set(new List<Trait> { BeingTraits.Get("nudist"), BeingTraits.Get("enlightened") }, true);
+            }
+
+            Being previewNudist = cmdSpawnBeing.Being;
 
             S.Situation.AddTension(0f, "Capsule Uninvited Nudists");
-            logEntry = EventLogEntry.CreateFor(this, "evt.capsule.uninvited_nudists.title".T(), "evt.capsule.uninvited_nudists.description".T(), being.Definition.Preview, being.Id);
+            logEntry = EventLogEntry.CreateFor(this, "evt.capsule.uninvited_nudists.title".T(), "evt.capsule.uninvited_nudists.description".T(), previewNudist.Definition.Preview, previewNudist.Id);
         }
         public void SetPosIdx(int posIdx)
         {
