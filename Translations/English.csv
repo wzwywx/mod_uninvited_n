@@ -1,3 +1,3 @@
 Key,Translation,Version,Comment (context for translators)
-evt.capsule.uninvited_nudists.description, "Uninvited Nudists",,
-evt.capsule.uninvited_nudists.description, "{0} nudists invited themselves to join your ship.", 1.0, Argument refers to the number of nudists who joined 
+evt.capsule.uninvited_nudists.title, "{0} nudists invited themselves!",,"{0} refers to the number of nudists who joined" 
+evt.capsule.uninvited_nudists.description, "They are <b>nude</b> and <b>enlightened</b>: a frightening combo. And they are so enlightened, they don't care what you think about them joining your ship uninvited. Rude and nude much.",, 

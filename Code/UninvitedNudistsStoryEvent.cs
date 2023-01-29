@@ -9,6 +9,7 @@ using KL.Utils;
 using UnityEngine;
 using System.Collections.Generic;
 using Game.AI.Traits;
+using Game.Constants;
 
 namespace UninvitedNudists
 {
@@ -40,6 +41,7 @@ namespace UninvitedNudists
         public override StoryEventMeta Meta => meta;
 
         public override EventLogEntry LogEntry => logEntry;
+        private EventNotification notification;
 
         // TODO: Figure out how to use the generated nudist Persona to alter the traits 
         private Persona GenerateNudistPersona(Species species)
@@ -78,7 +80,19 @@ namespace UninvitedNudists
             Being previewNudist = cmdSpawnBeing.Being;
 
             S.Situation.AddTension(0f, "Capsule Uninvited Nudists");
-            logEntry = EventLogEntry.CreateFor(this, "evt.capsule.uninvited_nudists.title".T(), "evt.capsule.uninvited_nudists.description".T(), previewNudist.Definition.Preview, previewNudist.Id);
+
+            string evTitle = "evt.capsule.uninvited_nudists.title";
+            string evDesc = "evt.capsule.uninvited_nudists.description";
+
+            logEntry = EventLogEntry.CreateFor(this, evTitle.T(nudistsCount), evDesc.T(), previewNudist.Definition.Preview, previewNudist.Id);
+            S.Story.Log.AddLogEntry(logEntry);
+
+            notification = EventNotification.Create(
+               S.Ticks, UDB.Create(previewNudist.MainDataProvider,
+                   UDBT.IEvent, previewNudist.Definition.Preview, evTitle.T(nudistsCount))
+               .WithIconClickFunction(LogEntry.ShowDetails),
+                   Priority.Normal, false);
+            S.Sig.AddEvent.Send(this.notification);
         }
         public void SetPosIdx(int posIdx)
         {

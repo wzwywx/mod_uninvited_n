@@ -1,10 +1,10 @@
 {
     "Id": "Uninvited Nudists",
     "SteamWorkshop": false,
-    "Name": "Uninvited Nudists",
-    "Description": "Life is rough in space. Why not free yourself from the shackles of clothing and bring nudity joy to random spaceships whether they like it or not?",
+    "Name": "Uninvited Enlightened Nudists",
+    "Description": "Life is rough in space. Why not free yourself from the shackles of clothing and bring nudity enlightenment to everyone in space?",
     "ModVersion": "1.0.0",
-    "GameVersion": "0.6.164",
+    "GameVersion": "0.7.1.1488",
     "Dependencies": [
         "Core"
     ]
