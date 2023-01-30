@@ -12,3 +12,4 @@ Libraries/*.json
 
 .vscode/obj/
 obj/
+SteamWorkshopItemId
